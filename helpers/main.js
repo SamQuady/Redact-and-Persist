@@ -7,7 +7,7 @@ let redacter = (wordsToRedact, originalDoc) => {
 
   let dbCopy = {};
 
-  dbCopy.original = doc;
+  dbCopy.original = originalDoc;
 
   if (!wordsToRedact) {
     return originalDoc;
@@ -30,13 +30,43 @@ let redacter = (wordsToRedact, originalDoc) => {
 
 let nonCasedRedacter = (wordsToRedact, originalDoc) => {
 
+  if (!originalDoc) {
+    return 'No Document Entered!';
+  }
 
+  let dbCopy = {};
+
+  dbCopy.original = originalDoc;
+  originalDoc = originalDoc.toUpperCase();
+
+  if (!wordsToRedact) {
+    return originalDoc;
+  }
+
+  dbCopy.redactedWords = [];
+
+  for (let words of wordsToRedact) {
+    if (originalDoc.indexOf(words.toUpperCase();) > -1) {
+      dbCopy.redactedWords.push(words.toUpperCase(););
+      while (originalDoc.indexOf(words.toUpperCase();) > -1) {
+        originalDoc = originalDoc.replace(words.toUpperCase();, 'XXXX');
+      }
+    }
+  }
+  dbCopy.redactedCopy = originalDoc;
+  //where persistence would happen
+  return dbCopy.redactedCopy
 }
+
+module.exports = {
+  redacter,
+  nonCasedRedacter
+};
 
 //notes
 
 /*
-At the moment, this redacter is case-sensitive, and accent sensitive. In order to make it handle redactions with inconsistent capitalization or non-english accents, I would sub out the .indexOf() method with a .localeCompare() method, which would allow much more comprehenesive comparisions before redaction. If it was desirable to merely handle inputs without case-sensitivity, I would use either .localCompare() or if it were acceptable to alter the casing of the input document, simply uppercase everything before going through redactions.
+At the moment, this redacter is case-sensitive, and accent sensitive. In order to make it handle redactions with inconsistent capitalization or non-english accents, I would sub out the .indexOf() method with a .localeCompare() method, which would allow much more comprehenesive comparisions before redaction. If it was desirable to merely handle inputs without case-sensitivity, I would use either .localCompare() or if it were acceptable to alter the casing of the input document, simply uppercase everything before going through redactions. I've added a second redaction function to handle the cases where casing can be changed.
 
 Before returning the now redacted copy I would persist the entire dbCopy object I constructed to a database. There are many DBs that can now handle JSON data, so there are certainly a lot to choose from, but for this I would use MongoDB. The main reason is that I know Mongo can handle searching for records in a collection based on one value being present in the document. Mongo would support being able to subsequently find documents based on searching for a redacted word in the array of redacted words I added.
 
