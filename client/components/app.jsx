@@ -17,6 +17,7 @@ class App extends React.Component {
     this.documentSubmit = this.documentSubmit.bind(this);
     this.documentType = this.documentType.bind(this);
     this.caseSwap = this.caseSwap.bind(this);
+    this.redact = this.redact.bind(this);
   }
 
   wordSubmit() {
@@ -33,13 +34,13 @@ class App extends React.Component {
   }
 
   documentSubmit() {
-    let redacted = '';
-    if (this.state.cased) {
-      redacted = nonCasedRedacter(this.state.original);
-    } else {
-      redacted = redacter(this.state.original);
+    let answer = window.confirm("Are you sure about this document?");
+    if (answer) {
+      let form = document.getElementById("docText");
+      form.value = '';
+      form.readOnly = true;
+      event.preventDefault();
     }
-    console.log(redacted);
   }
 
   documentType(event) {
@@ -49,6 +50,17 @@ class App extends React.Component {
   caseSwap() {
     let current = this.state.cased;
     this.setState({cased: !current});
+  }
+
+  redact() {
+    let redacted = '';
+
+    if (this.state.cased) {
+      redacted = nonCasedRedacter(this.state.original);
+    } else {
+      redacted = redacter(this.state.original);
+    }
+    console.log(redacted);
   }
 
   render() {
@@ -66,7 +78,7 @@ class App extends React.Component {
           </div>
           <div>
             <h4>Original Document</h4>
-            <input type="text" onChange={this.documentType}></input>
+            <input id="docText" type="text" onChange={this.documentType}></input>
             <button onClick={this.documentSubmit}>Enter</button>
           </div>
         </div>
