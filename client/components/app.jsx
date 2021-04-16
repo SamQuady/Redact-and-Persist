@@ -1,5 +1,62 @@
 import React from 'react';
 import { redacter, nonCasedRedacter } from './helpers.js';
+import styled from 'styled-components';
+
+const Button = styled.button`
+line-height: 30px;
+background-color: white;
+border-radius: 2px;
+border-style: solid;
+border-color: rgb(104, 104, 104);
+border-width: 1px;
+margin-left: 10px;
+color: rgb(41, 41, 41);
+cursor: pointer;
+font-family: "Roboto","Helvetica Neue","Helvetica","Arial",sans-serif;
+font-size: 20x;
+font-weight: 400;
+height: 34px;
+width: auto;
+&:hover {box-shadow: inset 0 0 3px #000000;}
+`;
+
+const WordInput = styled.input`
+line-height: 30px;
+background-color: white;
+border-radius: 2px;
+border-style: solid;
+border-color: rgb(104, 104, 104);
+border-width: 1px;
+margin-left: 10px;
+color: rgb(41, 41, 41);
+font-family: "Roboto","Helvetica Neue","Helvetica","Arial",sans-serif;
+font-size: 20x;
+font-weight: 400;
+height: 34px;
+`;
+
+const DocInput = styled.textarea`
+line-height: 30px;
+background-color: white;
+border-radius: 2px;
+border-style: solid;
+border-color: rgb(104, 104, 104);
+border-width: 1px;
+margin-left: 10px;
+color: rgb(41, 41, 41);
+font-family: "Roboto","Helvetica Neue","Helvetica","Arial",sans-serif;
+font-size: 20x;
+font-weight: 400;
+height: 200px;
+width: 400px;
+`;
+
+const InputHolder = styled.div`
+width: 50%;
+float: left;
+`
+
+
 
 
 class App extends React.Component {
@@ -72,21 +129,21 @@ class App extends React.Component {
           <h2>Document Redacter</h2>
         </div>
         <div>
-          <div>
+          <InputHolder>
             <h4>Sensitive Words</h4>
-            <input id="wordText" type="text" onChange={this.wordType}></input>
-            <button onClick={this.wordSubmit}>Enter</button>
-          </div>
-          <div>
+            <WordInput id="wordText" type="text" onChange={this.wordType}></WordInput>
+            <Button onClick={this.wordSubmit}>Enter</Button>
+          </InputHolder>
+          <InputHolder>
             <h4>Original Document</h4>
-            <input id="docText" type="text" onChange={this.documentType}></input>
-            <button onClick={this.documentSubmit}>Enter</button>
-          </div>
+            <DocInput id="docText" type="text" onChange={this.documentType}></DocInput>
+            <Button onClick={this.documentSubmit}>Enter</Button>
+          </InputHolder>
         </div>
         <div>
           <div>{this.state.cased? 'Currently Observing Case Sensitivity' : 'Currently Ignoring Case Sensitivity'}</div>
-          <button onClick={this.caseSwap}>Case Swap</button>
-          <button onClick={this.redact}>Redact!</button>
+          <Button onClick={this.caseSwap}>Case Swap</Button>
+          <Button onClick={this.redact}>Redact!</Button>
         </div>
         <div>
           <div>
