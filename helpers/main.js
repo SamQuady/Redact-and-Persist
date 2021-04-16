@@ -4,7 +4,6 @@ let redacter = (wordsToRedact, originalDoc) => {
     return 'No Document Entered!';
   }
 
-
   let dbCopy = {};
 
   dbCopy.original = originalDoc;
@@ -46,10 +45,10 @@ let nonCasedRedacter = (wordsToRedact, originalDoc) => {
   dbCopy.redactedWords = [];
 
   for (let words of wordsToRedact) {
-    if (originalDoc.indexOf(words.toUpperCase();) > -1) {
-      dbCopy.redactedWords.push(words.toUpperCase(););
-      while (originalDoc.indexOf(words.toUpperCase();) > -1) {
-        originalDoc = originalDoc.replace(words.toUpperCase();, 'XXXX');
+    if (originalDoc.indexOf(words.toUpperCase()) > -1) {
+      dbCopy.redactedWords.push(words.toUpperCase());
+      while (originalDoc.indexOf(words.toUpperCase()) > -1) {
+        originalDoc = originalDoc.replace(words.toUpperCase(), 'XXXX');
       }
     }
   }
