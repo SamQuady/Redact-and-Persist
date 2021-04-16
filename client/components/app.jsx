@@ -11,6 +11,7 @@ class App extends React.Component {
       original: '',
       redacted: '',
       cased: false,
+      redaction: false
     };
     this.wordSubmit = this.wordSubmit.bind(this);
     this.wordType = this.wordType.bind(this);
@@ -60,7 +61,7 @@ class App extends React.Component {
     } else {
       redacted = redacter(this.state.words, this.state.original);
     }
-    console.log(redacted);
+    this.setState({redacted: redacted, redaction: true});
   }
 
   render() {
@@ -86,6 +87,11 @@ class App extends React.Component {
           <div>{this.state.cased? 'Currently Observing Case Sensitivity' : 'Currently Ignoring Case Sensitivity'}</div>
           <button onClick={this.caseSwap}>Case Swap</button>
           <button onClick={this.redact}>Redact!</button>
+        </div>
+        <div>
+          <div>
+            {this.state.redaction? this.state.redacted : ''}
+          </div>
         </div>
       </div>
     )
