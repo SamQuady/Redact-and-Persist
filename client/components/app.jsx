@@ -55,10 +55,10 @@ class App extends React.Component {
   redact() {
     let redacted = '';
 
-    if (this.state.cased) {
-      redacted = nonCasedRedacter(this.state.original);
+    if (!this.state.cased) {
+      redacted = nonCasedRedacter(this.state.words, this.state.original);
     } else {
-      redacted = redacter(this.state.original);
+      redacted = redacter(this.state.words, this.state.original);
     }
     console.log(redacted);
   }
@@ -85,7 +85,7 @@ class App extends React.Component {
         <div>
           <div>{this.state.cased? 'Currently Observing Case Sensitivity' : 'Currently Ignoring Case Sensitivity'}</div>
           <button onClick={this.caseSwap}>Case Swap</button>
-          <button>Redact!</button>
+          <button onClick={this.redact}>Redact!</button>
         </div>
       </div>
     )
