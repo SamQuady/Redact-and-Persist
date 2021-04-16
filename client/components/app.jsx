@@ -2,6 +2,17 @@ import React from 'react';
 import { redacter, nonCasedRedacter } from './helpers.js';
 import styled from 'styled-components';
 
+const Title = styled.h2`
+font-family: Copperplate, fantasy;
+font-size: 30px;
+text-align: center;
+`;
+
+const Subtitle = styled.h3`
+font-family: Lucida Console, monospace;
+padding-left: 5px;
+`
+
 const Button = styled.button`
 line-height: 30px;
 background-color: white;
@@ -12,7 +23,7 @@ border-width: 1px;
 margin-left: 10px;
 color: rgb(41, 41, 41);
 cursor: pointer;
-font-family: "Roboto","Helvetica Neue","Helvetica","Arial",sans-serif;
+font-family: Lucida Console, monospace;
 font-size: 20x;
 font-weight: 400;
 height: 34px;
@@ -29,7 +40,7 @@ border-color: rgb(104, 104, 104);
 border-width: 1px;
 margin-left: 10px;
 color: rgb(41, 41, 41);
-font-family: "Roboto","Helvetica Neue","Helvetica","Arial",sans-serif;
+font-family: Lucida Console, monospace;
 font-size: 20x;
 font-weight: 400;
 height: 34px;
@@ -44,7 +55,7 @@ border-color: rgb(104, 104, 104);
 border-width: 1px;
 margin-left: 10px;
 color: rgb(41, 41, 41);
-font-family: "Roboto","Helvetica Neue","Helvetica","Arial",sans-serif;
+font-family: Lucida Console, monospace;
 font-size: 20x;
 font-weight: 400;
 height: 200px;
@@ -53,8 +64,39 @@ width: 400px;
 
 const InputHolder = styled.div`
 width: 50%;
+height: auto;
 float: left;
-`
+`;
+
+const ControlsHolder = styled.div`
+width: 100%;
+height: auto;
+padding-top: 77px;
+`;
+
+const ControlsButtonHolder = styled.div`
+width: 100%;
+padding-top: 2px;
+`;
+
+const RedactedHolder = styled.div`
+width: 100%;
+margin: 100px;
+padding: 100px;
+`;
+
+const RedactedText = styled.div`
+margin: 100px;
+padding: 100px;
+font-family: Lucida Console, monospace;
+font-size: 24x;
+font-weight: 400;
+`;
+
+const ButtonHoldingDiv = styled.div`
+padding-top: 20px;
+`;
+
 
 
 
@@ -126,30 +168,36 @@ class App extends React.Component {
     return (
       <div>
         <div>
-          <h2>Document Redacter</h2>
+          <Title>Document Redacter</Title>
         </div>
         <div>
           <InputHolder>
-            <h4>Sensitive Words</h4>
+            <Subtitle>Sensitive Words</Subtitle>
             <WordInput id="wordText" type="text" onChange={this.wordType}></WordInput>
-            <Button onClick={this.wordSubmit}>Enter</Button>
+            <ButtonHoldingDiv>
+              <Button onClick={this.wordSubmit}>Enter</Button>
+            </ButtonHoldingDiv>
+            <ControlsHolder>
+              <Subtitle>{this.state.cased? 'Currently Observing Case Sensitivity' : 'Currently Ignoring Case Sensitivity'}</Subtitle>
+              <ControlsButtonHolder>
+                <Button onClick={this.caseSwap}>Case Swap</Button>
+                <Button onClick={this.redact}>Redact!</Button>
+              </ControlsButtonHolder>
+            </ControlsHolder>
           </InputHolder>
           <InputHolder>
-            <h4>Original Document</h4>
+            <Subtitle>Original Document</Subtitle>
             <DocInput id="docText" type="text" onChange={this.documentType}></DocInput>
-            <Button onClick={this.documentSubmit}>Enter</Button>
+            <ButtonHoldingDiv>
+              <Button onClick={this.documentSubmit}>Enter</Button>
+            </ButtonHoldingDiv>
           </InputHolder>
         </div>
-        <div>
-          <div>{this.state.cased? 'Currently Observing Case Sensitivity' : 'Currently Ignoring Case Sensitivity'}</div>
-          <Button onClick={this.caseSwap}>Case Swap</Button>
-          <Button onClick={this.redact}>Redact!</Button>
-        </div>
-        <div>
-          <div>
+        <RedactedHolder>
+          <RedactedText>
             {this.state.redaction? this.state.redacted : ''}
-          </div>
-        </div>
+          </RedactedText>
+        </RedactedHolder>
       </div>
     )
   }
