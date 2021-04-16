@@ -81,13 +81,12 @@ padding-top: 2px;
 
 const RedactedHolder = styled.div`
 width: 100%;
-margin: 100px;
-padding: 100px;
 `;
 
 const RedactedText = styled.div`
-margin: 100px;
-padding: 100px;
+text-align: center;
+width: auto;
+padding-top: 100px;
 font-family: Lucida Console, monospace;
 font-size: 24x;
 font-weight: 400;
@@ -164,7 +163,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <div>
@@ -193,11 +191,13 @@ class App extends React.Component {
             </ButtonHoldingDiv>
           </InputHolder>
         </div>
-        <RedactedHolder>
-          <RedactedText>
-            {this.state.redaction? this.state.redacted : ''}
-          </RedactedText>
-        </RedactedHolder>
+        <div>
+          <RedactedHolder>
+            <RedactedText>
+              {this.state.redaction? this.state.redacted : ''}
+            </RedactedText>
+          </RedactedHolder>
+        </div>
       </div>
     )
   }
